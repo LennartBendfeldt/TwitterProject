@@ -1,6 +1,7 @@
 package com.tts.TechTalentTwitter.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,20 +12,20 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
-import org.springframework.beans.factory.annotation.Value;
-
-//import lombok.Value;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    // this autowires our encoder, thus injecting the dependency
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    // this autowires a reference to our datasource
     @Autowired
     private DataSource dataSource;
 
+    // these are queries defined in our application.props
     @Value("${spring.queries.users-query}")
     private String usersQuery;
 
@@ -71,4 +72,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .ignoring()
                 .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
     }
+
+
 }

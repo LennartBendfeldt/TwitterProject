@@ -10,9 +10,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="/custom.js"></script>
 </head>
+
 <body>
 <div class="container">
-    <h2>Welcome to TechTalentTwitter!</h2>
+    <div th:replace="fragments/navbar"></div>
+    <h2>Welcome!</h2>
     <form th:action="@{/login}" method="post"><br/>
         <input type="text" id="username" name="username" th:placeholder="Username" class="form-control"/> <br/>
         <input type="password" th:placeholder="Password" id="password" name="password" class="form-control"/> <br/>
@@ -23,4 +25,5 @@
     </form>
 </div>
 </body>
+
 </html>

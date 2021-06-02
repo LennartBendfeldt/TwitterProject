@@ -4,16 +4,14 @@ import com.tts.TechTalentTwitter.model.Role;
 import com.tts.TechTalentTwitter.model.User;
 import com.tts.TechTalentTwitter.repository.RoleRepository;
 import com.tts.TechTalentTwitter.repository.UserRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-
 
 @Service
 public class UserService {
@@ -30,11 +28,12 @@ public class UserService {
         this.roleRepository = roleRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
-    public User findByUsername(String username) {
+
+    public User findByUserName(String username) {
         return userRepository.findByUsername(username);
     }
 
-    public List<User> findAll(){
+    public List<User> findAll() {
         return (List<User>) userRepository.findAll();
     }
 
@@ -51,9 +50,11 @@ public class UserService {
     }
 
     public User getLoggedInUser() {
-        String loggedInUsername = SecurityContextHolder.
-                getContext().getAuthentication().getName();
+        String loggedInUsername = SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getName();
 
-        return findByUsername(loggedInUsername);
+        return findByUserName(loggedInUsername);
     }
+
 }
